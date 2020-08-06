@@ -4,11 +4,38 @@ import { GithubContext } from "../context/context";
 import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from "./Charts";
 const Repos = () => {
   const { repos } = React.useContext(GithubContext);
+  let languages = repos.reduce((total, item) => {
+    const { language } = item;
+    if (!language) return total;
+    if (!total[language]) {
+      total[language] = 1;
+    } else {
+      total[language] = 30;
+    }
+    console.log(language);
+
+    return total;
+  }, {});
+  const chartData = [
+    {
+      label: "HTML",
+      value: "25",
+    },
+    {
+      label: "CSS",
+      value: "100",
+    },
+    {
+      label: "JavaScript",
+      value: "80",
+    },
+  ];
 
   return (
     <section className="section">
       <Wrapper className="section-center">
-        <ExampleChart />
+        {/* <ExampleChart data={chartData} /> */}
+        <Pie3D data={chartData} />
       </Wrapper>
     </section>
   );
