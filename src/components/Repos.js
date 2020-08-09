@@ -24,29 +24,29 @@ const Repos = () => {
     .sort((a, b) => {
       return b.value - a.value;
     })
-    .slice(0, 7);
+    .slice(0, 20);
   /*   console.log(languages); */
 
-  const chartData = [
+  /* const chartData = [
     {
       label: "HTML",
       value: "25",
     },
     {
       label: "CSS",
-      value: "100",
+      value: "40",
     },
     {
       label: "JavaScript",
       value: "80",
     },
-  ];
+  ]; */
 
   return (
     <section className="section">
       <Wrapper className="section-center">
         {/* <ExampleChart data={chartData} /> */}
-        <Pie3D data={chartData} />
+        <Pie3D data={languages} />
       </Wrapper>
     </section>
   );
@@ -64,7 +64,9 @@ const Wrapper = styled.div`
     grid-template-columns: 2fr 3fr;
   }
 
-  div {
+  
+
+  /* div {
     width: 100% !important;
   }
   .fusioncharts-container {
@@ -73,7 +75,7 @@ const Wrapper = styled.div`
   svg {
     width: 100% !important;
     border-radius: var(--radius) !important;
-  }
+  } */
 `;
 
 export default Repos;
