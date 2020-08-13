@@ -6,21 +6,19 @@ const Repos = () => {
   const { repos } = React.useContext(GithubContext);
 
   const languages = repos.reduce((total, item) => {
-    const { language, stargazers_count, forks_count } = item;
+    const { language, stargazers_count } = item;
     if (!language) return total;
     if (!total[language]) {
       total[language] = {
         label: language,
         value: 1,
         stars: stargazers_count,
-        forks: forks_count,
       };
     } else {
       total[language] = {
         ...total[language],
         value: total[language].value + 1,
         stars: total[language].stars + stargazers_count,
-        forks: total[language].forks + forks_count,
       };
     }
 
@@ -48,9 +46,9 @@ const Repos = () => {
 
   let { stars, forks } = repos.reduce(
     (total, item) => {
-      const { stargazers_count, name, forks,forks_count } = item;
+      const { stargazers_count, name, forks, forks_count } = item;
       total.stars[stargazers_count] = { label: name, value: stargazers_count };
-      total.forks[forks_count] = { label: name, value: forks_count };
+      total.forks[forks] = { label: name, value: forks };
       return total;
     },
     {
@@ -61,21 +59,6 @@ const Repos = () => {
 
   stars = Object.values(stars).slice(-5).reverse();
   forks = Object.values(forks).slice(-5).reverse();
-
-  const chartData = [
-    {
-      label: "HTML",
-      value: "25",
-    },
-    {
-      label: "CSS",
-      value: "40",
-    },
-    {
-      label: "JavaScript",
-      value: "80",
-    },
-  ];
 
   return (
     <section className="section">
