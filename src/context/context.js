@@ -16,13 +16,13 @@ const GithubProvider = ({ children }) => {
   const [followers, setFollowers] = useState(mockFollowers);
   // requests loading
   const [requests, setRequests] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   // errors
   const [error, setError] = useState({ show: false, msg: "" });
 
   const searchGithubUser = async (user) => {
     toggleError();
-    // set loading (true)
+    setIsLoading(true);
     const response = await axios(`${rootUrl}/users/${user}`).catch((err) =>
       console.log(err)
     );
@@ -32,6 +32,8 @@ const GithubProvider = ({ children }) => {
     } else {
       toggleError(true, "There is No user with that username");
     }
+    checkRequests();
+    setIsLoading(false);
   };
 
   // check Rate
@@ -44,6 +46,8 @@ const GithubProvider = ({ children }) => {
 
         // for testing the error msg
         // remaining = 0;
+
+        // Normal Toggle Error msg
         setRequests(remaining);
         if (remaining === 0) {
           toggleError(true, "Sorry, you have exceeded your hourly rate limit!");
@@ -65,6 +69,7 @@ const GithubProvider = ({ children }) => {
         requests,
         error,
         searchGithubUser,
+        isLoading,
       }}
     >
       {children}
